@@ -8,7 +8,6 @@ env/
 venv/
 .venv/
 pip-log.txt
-pip-delete-this-directory.txt
 
 # IDEs
 .vscode/
@@ -22,8 +21,13 @@ Thumbs.db
 
 # CI/CD artifacts
 results.json
+test-results.json
 *.log
 
 # Temporary files
 *.tmp
 *.temp
+
+# Local test files
+test_submission.md
+debug_*
