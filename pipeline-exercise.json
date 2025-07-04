@@ -1,0 +1,251 @@
+{
+    "metadata": {
+      "course": "MODULE 4 – Données, IA & transformation digitale",
+      "instructor": "Antoine Coppin",
+      "date": "19/01/2026",
+      "exercise_version": "1.0",
+      "instructions": "Remplacez chaque '________________' par votre réponse (A, B, C ou D pour QCM, texte exact pour code)",
+      "time_limit": "20 minutes",
+      "total_points": "20 points (10 QCM + 10 Code)",
+      "passing_grade": "14/20"
+    },
+    
+    "qcm_questions": {
+      "q01": {
+        "category": "Pipeline ML",
+        "question": "Dans un pipeline ML en production, quelle étape est cruciale AVANT le déploiement ?",
+        "options": [
+          "A) Collecte de nouvelles données",
+          "B) Validation du modèle sur données de test",
+          "C) Optimisation des hyperparamètres",
+          "D) Documentation du code"
+        ],
+        "answer": "________________"
+      },
+      
+      "q02": {
+        "category": "MLOps",
+        "question": "MLflow est principalement utilisé pour :",
+        "options": [
+          "A) Préprocessing des données",
+          "B) Tracking des expériences et versioning des modèles",
+          "C) Déploiement d'applications web",
+          "D) Visualisation de données"
+        ],
+        "answer": "________________"
+      },
+      
+      "q03": {
+        "category": "Data Drift",
+        "question": "La dérive des données (data drift) en production se manifeste quand :",
+        "options": [
+          "A) Le modèle fait des erreurs",
+          "B) Les données d'entrée changent par rapport à l'entraînement",
+          "C) Le serveur tombe en panne",
+          "D) Les utilisateurs changent leurs habitudes"
+        ],
+        "answer": "________________"
+      },
+      
+      "q04": {
+        "category": "RGPD",
+        "question": "Le RGPD impose aux systèmes d'IA automatisés de fournir :",
+        "options": [
+          "A) Une garantie de performance",
+          "B) Une explication des décisions prises",
+          "C) Un accès gratuit aux données",
+          "D) Une interface utilisateur graphique"
+        ],
+        "answer": "________________"
+      },
+      
+      "q05": {
+        "category": "Métriques ML",
+        "question": "Pour un problème de classification binaire déséquilibré (95% classe négative), quelle métrique est la PLUS appropriée ?",
+        "options": [
+          "A) Accuracy",
+          "B) F1-Score",
+          "C) Recall uniquement",
+          "D) Nombre total de prédictions correctes"
+        ],
+        "answer": "________________"
+      },
+      
+      "q06": {
+        "category": "Biais Algorithmiques",
+        "question": "Un biais de sélection dans les données d'entraînement peut causer :",
+        "options": [
+          "A) Une amélioration des performances",
+          "B) Une discrimination systémique dans les prédictions",
+          "C) Une accélération de l'entraînement",
+          "D) Une réduction de la consommation mémoire"
+        ],
+        "answer": "________________"
+      },
+      
+      "q07": {
+        "category": "Architecture Déploiement",
+        "question": "Pour servir un modèle ML à des milliers d'utilisateurs simultanés, quelle architecture est recommandée ?",
+        "options": [
+          "A) Fichier Excel partagé",
+          "B) Script Python local",
+          "C) API REST avec load balancer",
+          "D) Base de données relationnelle"
+        ],
+        "answer": "________________"
+      },
+      
+      "q08": {
+        "category": "Feature Engineering",
+        "question": "Pour traiter une variable catégorielle avec 100 catégories différentes, quelle technique est généralement préférable ?",
+        "options": [
+          "A) One-Hot Encoding",
+          "B) Target Encoding",
+          "C) Suppression de la variable",
+          "D) Conversion en numérique simple (1, 2, 3...)"
+        ],
+        "answer": "________________"
+      },
+      
+      "q09": {
+        "category": "Monitoring",
+        "question": "En production, quelle métrique n'est PAS utile pour monitorer la santé d'un modèle ML ?",
+        "options": [
+          "A) Latence de prédiction",
+          "B) Distribution des prédictions",
+          "C) Nombre de lignes de code",
+          "D) Pourcentage d'erreurs 5xx"
+        ],
+        "answer": "________________"
+      },
+      
+      "q10": {
+        "category": "Sécurité & Ethics",
+        "question": "Pour détecter un potentiel biais discriminatoire dans un modèle de scoring crédit, il faut analyser :",
+        "options": [
+          "A) Les performances globales uniquement",
+          "B) Les performances par groupe démographique",
+          "C) Le temps d'exécution du modèle",
+          "D) La complexité algorithmique"
+        ],
+        "answer": "________________"
+      }
+    },
+    
+    "code_completion": {
+      "c01": {
+        "category": "MLflow Tracking",
+        "question": "Complétez le code pour enregistrer une métrique avec MLflow :",
+        "code_context": [
+          "import mlflow",
+          "# Enregistrer la précision du modèle",
+          "accuracy = 0.85"
+        ],
+        "code_template": "mlflow.________________('accuracy', accuracy)",
+        "answer": "________________"
+      },
+      
+      "c02": {
+        "category": "pandas Preprocessing",
+        "question": "Pour créer des variables dummy (One-Hot Encoding) avec pandas :",
+        "code_context": [
+          "import pandas as pd",
+          "# Dataset avec colonne catégorielle 'category'",
+          "df = pd.read_csv('data.csv')"
+        ],
+        "code_template": "df_encoded = pd.________________(df, columns=['category'])",
+        "answer": "________________"
+      },
+      
+      "c03": {
+        "category": "scikit-learn Train/Test Split",
+        "question": "Divisez les données en 80% train, 20% test avec scikit-learn :",
+        "code_context": [
+          "from sklearn.model_selection import train_test_split",
+          "# X = features, y = target"
+        ],
+        "code_template": "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=________________, random_state=42)",
+        "answer": "________________"
+      },
+      
+      "c04": {
+        "category": "Métriques Classification",
+        "question": "Calculez le F1-score avec scikit-learn :",
+        "code_context": [
+          "from sklearn.metrics import f1_score",
+          "# y_true = vraies étiquettes, y_pred = prédictions"
+        ],
+        "code_template": "f1 = ________________(y_true, y_pred)",
+        "answer": "________________"
+      },
+      
+      "c05": {
+        "category": "Docker Dockerfile",
+        "question": "Dans un Dockerfile, quelle instruction copie les fichiers dans l'image ?",
+        "code_context": [
+          "# Copier requirements.txt dans le container",
+          "FROM python:3.9"
+        ],
+        "code_template": "________________ requirements.txt /app/",
+        "answer": "________________"
+      },
+      
+      "c06": {
+        "category": "MLflow Model Logging",
+        "question": "Enregistrez un modèle scikit-learn avec MLflow :",
+        "code_context": [
+          "import mlflow.sklearn",
+          "from sklearn.ensemble import RandomForestClassifier",
+          "model = RandomForestClassifier().fit(X_train, y_train)"
+        ],
+        "code_template": "mlflow.sklearn.________________(model, 'random_forest_model')",
+        "answer": "________________"
+      },
+      
+      "c07": {
+        "category": "JSON Data Handling",
+        "question": "Chargez un fichier JSON en Python :",
+        "code_context": [
+          "import json",
+          "# Charger configuration depuis config.json"
+        ],
+        "code_template": "with open('config.json', 'r') as f:\n    config = json.________________(f)",
+        "answer": "________________"
+      },
+      
+      "c08": {
+        "category": "API Flask Simple",
+        "question": "Créez un endpoint de prédiction avec Flask :",
+        "code_context": [
+          "from flask import Flask, request, jsonify",
+          "app = Flask(__name__)",
+          "# Endpoint POST pour prédictions"
+        ],
+        "code_template": "@app.route('/predict', methods=['________________'])\ndef predict():\n    return jsonify({'prediction': 42})",
+        "answer": "________________"
+      },
+      
+      "c09": {
+        "category": "Validation Croisée",
+        "question": "Effectuez une validation croisée 5-fold avec scikit-learn :",
+        "code_context": [
+          "from sklearn.model_selection import cross_val_score",
+          "from sklearn.ensemble import RandomForestClassifier",
+          "model = RandomForestClassifier()"
+        ],
+        "code_template": "scores = cross_val_score(model, X, y, cv=________________)",
+        "answer": "________________"
+      },
+      
+      "c10": {
+        "category": "Gestion des Valeurs Manquantes",
+        "question": "Remplacez les valeurs manquantes par la médiane avec scikit-learn :",
+        "code_context": [
+          "from sklearn.impute import SimpleImputer",
+          "# Stratégie de remplacement par la médiane"
+        ],
+        "code_template": "imputer = SimpleImputer(strategy='________________')",
+        "answer": "________________"
+      }
+    }
+  }
