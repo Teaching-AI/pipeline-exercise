@@ -1,64 +1,60 @@
-name: Auto-Grade Pipeline Exercise
+name: Grade JSON Submission
 
 on:
   pull_request:
     types: [opened, synchronize]
-    paths: ['pipeline-schema.md']
+    paths: ['pipeline-exercise.json']
 
 jobs:
-  grade-submission:
+  grade:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    
+      
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
     
-    - name: Install dependencies
-      run: |
-        pip install pyyaml requests
-    
-    - name: Run grading tests
+    - name: Grade submission
       id: grade
       run: |
-        python grading/secure_grader.py --file pipeline-schema.md --output results.json
+        python system/runner.py --file pipeline-exercise.json --output results.json
         echo "score=$(python -c "import json; print(json.load(open('results.json'))['total_score'])")" >> $GITHUB_OUTPUT
+        echo "passed=$(python -c "import json; print(json.load(open('results.json'))['passed'])")" >> $GITHUB_OUTPUT
     
-    - name: Comment PR with results
+    - name: Comment results
       uses: actions/github-script@v7
       with:
         script: |
           const fs = require('fs');
           const results = JSON.parse(fs.readFileSync('results.json', 'utf8'));
           
-          const scoreEmoji = results.total_score >= 18 ? '🥇' : 
-                           results.total_score >= 14 ? '👍' : 
-                           results.total_score >= 10 ? '📚' : '🔄';
+          const emoji = results.passed ? '✅' : '❌';
+          const status = results.passed ? 'VALIDÉ' : 'NON VALIDÉ';
           
-          const comment = `## ${scoreEmoji} Résultats de l'auto-correction
+          const comment = `## ${emoji} Résultats - MODULE 4 IA & Données
           
-          **Score total : ${results.total_score}/20 points**
+          **Score: ${results.total_score}/20 (${results.percentage}%)**  
+          **Status: ${status}** - Note: ${results.grade_letter}
           
-          ### 📊 Détail par section :
-          ${results.sections.map(s => 
-            `- **${s.name}** : ${s.score}/${s.max_score} points ${s.score === s.max_score ? '✅' : '❌'}`
-          ).join('\n')}
+          ### 📊 Détail
+          - **QCM**: ${results.qcm_score}/10 points
+          - **Code**: ${results.code_score}/10 points
           
-          ### 💬 Feedback :
+          ### 💬 Feedback
           ${results.feedback}
           
-          ### 💡 Recommandations :
-          ${results.recommendations.map(r => `- ${r}`).join('\n')}
+          ### 📈 Performance par catégorie
+          ${Object.entries(results.category_analysis || {})
+            .map(([cat, data]) => `- **${cat}**: ${data.correct}/${data.total} (${data.percentage}%)`)
+            .join('\n')}
           
           ---
-          *Correction automatique sécurisée - Temps d'exécution: ${new Date().toLocaleTimeString()}*
-          `;
+          *Correction automatique - ${results.timestamp}*  
+          *Les solutions seront révélées en classe après l'exercice*`;
           
           github.rest.issues.createComment({
             issue_number: context.issue.number,
@@ -69,10 +65,10 @@ jobs:
     
     - name: Set status check
       run: |
-        if [ "${{ steps.grade.outputs.score }}" -ge "14" ]; then
-          echo "✅ Exercice validé (${{ steps.grade.outputs.score }}/20)"
+        if [ "${{ steps.grade.outputs.passed }}" == "True" ]; then
+          echo "✅ Exercice validé"
           exit 0
         else
-          echo "❌ Score insuffisant (${{ steps.grade.outputs.score }}/20) - Minimum requis: 14/20"
+          echo "❌ Score insuffisant (minimum 14/20)"
           exit 1
         fi

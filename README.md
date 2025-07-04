@@ -1,48 +1,97 @@
-# 🧠 Pipeline IA - Exercice d'ouverture
+# 📘 MODULE 4 – Données, IA & transformation digitale
+## Exercice d'évaluation automatisé
 
-## 🎯 Objectif
-Compléter le schéma d'un pipeline IA end-to-end en identifiant les étapes manquantes et les outils appropriés.
+---
 
-## 📋 Instructions
-1. **Fork** ce repository
-2. Complétez le fichier `pipeline-schema.md`
-3. **Commit** vos modifications avec un message descriptif
-4. Créez une **Pull Request** avant **9h30**
-5. Ajoutez un commentaire expliquant vos choix
+## 🎯 Vue d'ensemble
 
-## ⏱️ Timing
-- **Durée recommandée :** 15-20 minutes
-- **Deadline :** 9h30 (début du cours)
-- **Correction :** Automatique via CI/CD
+**Cours :** MODULE 4 – Données, IA & transformation digitale  
+**Date :** 19 janvier 2026  
+**Enseignant :** Antoine Coppin  
+**Format :** QCM + Code completion (20 questions, 20 points)  
+**Durée :** 20 minutes  
+**Seuil de validation :** 14/20  
 
-## 🎯 Critères d'évaluation
-- **Séquence pipeline** (6 points) : Ordre correct des étapes
-- **Choix d'outils** (8 points) : Pertinence et justification
-- **Cas d'usage** (3 points) : Description complète
-- **Réflexion** (3 points) : Qualité des réponses
+---
+
+## 📋 Instructions pour les étudiants
+
+### 1. **Fork** ce repository
+- Cliquez sur **"Fork"** en haut à droite
+- Sélectionnez votre compte personnel
+
+### 2. **Complétez** l'exercice
+- Modifiez le fichier `pipeline-exercise.json`
+- Remplacez **tous** les `________________` par vos réponses
+- **QCM** : Répondez A, B, C ou D
+- **Code** : Écrivez la syntaxe exacte
+
+### 3. **Soumettez** avant 9h30
+- **Commit** vos modifications
+- Créez une **Pull Request**
+- Le système corrige automatiquement en 1-2 minutes
+
+### 4. **Consultez** vos résultats
+- Score et feedback dans les commentaires de votre PR
+- Les solutions seront révélées en classe après l'exercice
+
+---
+
+## 🏆 Barème
+
+| Score | Note | Signification |
+|-------|------|---------------|
+| 18-20 | A | 🏆 Excellent ! Maîtrise exceptionnelle |
+| 16-17 | B+ | 🥇 Très bon niveau technique |
+| 14-15 | B | 👍 Bien ! Module validé |
+| 12-13 | C+ | ⚠️ Passable, quelques lacunes |
+| 10-11 | C | 📚 Insuffisant, révision nécessaire |
+| 0-9 | D | ❌ À reprendre |
+
+**Seuil de validation :** 14/20
+
+---
 
 ## 📚 Ressources
-- 📖 `resources/tools-list.md` : Liste des outils recommandés
-- 💡 `resources/examples/` : Exemples de bonnes réponses
-- 🆘 `resources/help-github.md` : Aide GitHub pour débutants
 
-## 🏆 Scoring
-- **18-20 points** : Excellent ! 🥇
-- **14-17 points** : Bon travail ! 👍
-- **10-13 points** : À améliorer 📚
-- **< 10 points** : À reprendre 🔄
+### Avant l'exercice
+- **Documentation officielle** : MLflow, pandas, scikit-learn, Docker
+- **TP précédents** : Pipeline ML, feature engineering
 
-**Note minimum pour valider :** 14/20
+### Aide GitHub (débutants)
+- **Fork** : Bouton en haut à droite → Sélectionner votre compte
+- **Éditer** : Cliquer sur `pipeline-exercise.json` → Icône crayon ✏️
+- **Commit** : "Commit changes" en bas de page
+- **Pull Request** : Bouton vert "Compare & pull request"
 
-## 🤖 Comment ça marche
-1. Vous créez une Pull Request
-2. Un système automatique analyse votre soumission
-3. Vous recevez un feedback détaillé en commentaire
-4. Vous pouvez améliorer et re-soumettre si besoin
+---
 
-## 🆘 Besoin d'aide ?
-- **GitHub débutant ?** → Consultez `resources/help-github.md`
-- **Questions techniques ?** → Créez une Issue
-- **Problème urgent ?** → Contactez @antoine-coppin
+### Structure du repository
+```
+pipeline-exercise/
+├── README.md                           # Ce fichier
+├── pipeline-exercise.json             # Template étudiant
+├── .github/workflows/                 
+│   └── grade-submission.yml           # Workflow CI/CD
+├── system/
+│   └── runner.py  # Runner sécurisé
+└── .gitignore
+```
 
-Bon courage ! 🚀
+---
+
+## ⚙️ Configuration GitHub Actions
+
+### Workflow automatique
+- **Déclencheur** : Pull Request sur `pipeline-exercise.json`
+- **Action** : Correction automatique
+- **Résultat** : Commentaire avec score et feedback
+- **Durée** : 1-2 minutes
+
+### Permissions requises
+```yaml
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+```
