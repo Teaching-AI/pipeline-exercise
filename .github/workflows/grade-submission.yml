@@ -1,4 +1,3 @@
-# .github/workflows/grade-submission.yml
 name: Grade JSON Submission
 
 on:
@@ -9,17 +8,22 @@ on:
 jobs:
   grade:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
     
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
     
     - name: Grade submission
+      id: grade
       run: |
-        python grading/simple_grader.py --file pipeline-exercise.json --output results.json
+        python system/runner.py --file pipeline-exercise.json --output results.json
+        echo "score=$(python -c "import json; print(json.load(open('results.json'))['total_score'])")" >> $GITHUB_OUTPUT
+        echo "passed=$(python -c "import json; print(json.load(open('results.json'))['passed'])")" >> $GITHUB_OUTPUT
     
     - name: Comment results
       uses: actions/github-script@v7
@@ -28,16 +32,29 @@ jobs:
           const fs = require('fs');
           const results = JSON.parse(fs.readFileSync('results.json', 'utf8'));
           
-          const comment = `## 🎯 Résultats automatiques
+          const emoji = results.passed ? '✅' : '❌';
+          const status = results.passed ? 'VALIDÉ' : 'NON VALIDÉ';
           
-          **Score: ${results.total_score}/20**
+          const comment = `## ${emoji} Résultats - MODULE 4 IA & Données
           
-          ### Détail:
-          ${results.sections.map(s => 
-            `- ${s.name}: ${s.score}/${s.max_score} points`
-          ).join('\n')}
+          **Score: ${results.total_score}/20 (${results.percentage}%)**  
+          **Status: ${status}** - Note: ${results.grade_letter}
           
-          ${results.feedback}`;
+          ### 📊 Détail
+          - **QCM**: ${results.qcm_score}/10 points
+          - **Code**: ${results.code_score}/10 points
+          
+          ### 💬 Feedback
+          ${results.feedback}
+          
+          ### 📈 Performance par catégorie
+          ${Object.entries(results.category_analysis || {})
+            .map(([cat, data]) => `- **${cat}**: ${data.correct}/${data.total} (${data.percentage}%)`)
+            .join('\n')}
+          
+          ---
+          *Correction automatique - ${results.timestamp}*  
+          *Les solutions seront révélées en classe après l'exercice*`;
           
           github.rest.issues.createComment({
             issue_number: context.issue.number,
@@ -45,3 +62,13 @@ jobs:
             repo: context.repo.repo,
             body: comment
           });
+    
+    - name: Set status check
+      run: |
+        if [ "${{ steps.grade.outputs.passed }}" == "True" ]; then
+          echo "✅ Exercice validé"
+          exit 0
+        else
+          echo "❌ Score insuffisant (minimum 14/20)"
+          exit 1
+        fi
